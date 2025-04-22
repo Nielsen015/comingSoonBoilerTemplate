@@ -25,6 +25,6 @@ $result = $conn->query("SELECT email, subscribed_at FROM subscribers ORDER BY su
         </tr>
         <?php endwhile; ?>
     </table>
-    <p><a href="index.html">Back to main page</a></p>
+    <p><a href="home">Back to main page</a></p>
 </body>
 </html>

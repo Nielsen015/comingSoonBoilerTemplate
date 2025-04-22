@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Remove .php extension
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^([^\.]+)/?$ $1.php [NC,L]
+    
+    # Map /home to index.html
+    RewriteRule ^home/?$ index.html [NC,L]
+    
+    # Make index.html the default directory index
+    DirectoryIndex index.html
+</IfModule>
