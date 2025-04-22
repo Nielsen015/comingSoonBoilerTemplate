@@ -1,0 +1,41 @@
+# .gitignore for Agriwatt Hub project
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Dependency directories
+/vendor/
+/node_modules/
+
+# Log files
+*.log
+subscriptions.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Composer files (except json/lock)
+composer.phar
+/composer.lock
+
+# Local configuration files
+config/local.php
+
+# Cache directories
+/cache/
+/tmp/
+
+# Session files
+/sessions/
+
+# User uploads
+/uploads/

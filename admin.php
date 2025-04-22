@@ -7,6 +7,7 @@ $result = $conn->query("SELECT email, subscribed_at FROM subscribers ORDER BY su
 <html>
 <head>
     <title>Subscribers List</title>
+    
     <style>
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
