@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Agriwatt Hub | Coming Soon</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/logo.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<!-- Logo in header -->
+	<!-- <div class="logo-header">
+		<img src="images/icons/logo.png" alt="Agriwatt Hub Logo">
+	</div> -->
+	
+	<!--  -->
+	<div class="simpleslide100">
+		<div class="simpleslide100-item bg-img1" style="background-image: url('images/bg02.jpg');"></div>
+		<div class="simpleslide100-item bg-img2" style="background-image: url('images/bg03.jpg');"></div>
+		<div class="simpleslide100-item bg-img3" style="background-image: url('images/bg01.jpg');"></div>
+	</div>
+
+	<div class="size1 overlay1">
+		<!--  -->
+		<div class="size1 flex-col-c-m p-l-15 p-r-15 p-t-50 p-b-50">
+			<!-- Logo in form area -->
+			<div class="logo-form">
+				<img src="images/icons/logo.png" alt="Agriwatt Hub Logo">
+			</div>
+			
+			<h3 class="l1-txt1 txt-center p-b-25">
+				Coming Soon!
+			</h3>
+
+			<p class="m2-txt1 txt-center p-b-48">
+				Our platform is under construction, follow us for update now!
+			</p>
+
+			<div class="flex-w flex-c-m cd100 p-b-33">
+				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
+					<span class="l2-txt1 p-b-9 days">35</span>
+					<span class="s2-txt1">Days</span>
+				</div>
+
+				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
+					<span class="l2-txt1 p-b-9 hours">17</span>
+					<span class="s2-txt1">Hours</span>
+				</div>
+
+				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
+					<span class="l2-txt1 p-b-9 minutes">50</span>
+					<span class="s2-txt1">Minutes</span>
+				</div>
+
+				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
+					<span class="l2-txt1 p-b-9 seconds">39</span>
+					<span class="s2-txt1">Seconds</span>
+				</div>
+			</div>
+
+			<form id="subscribeForm" class="w-full flex-w flex-c-m validate-form" action="submit.php" method="POST">
+				<div class="wrap-input100 validate-input where1" data-validate = "Valid email is required: ex@abc.xyz">
+					<input class="input100 placeholder0 s2-txt2" type="email" name="email" id="email" placeholder="Enter Email Address" required>
+					<span class="focus-input100"></span>
+				</div>
+				
+				<button title="submit" type="submit" class="flex-c-m size3 s2-txt3 how-btn1 trans-04 where1">
+					Subscribe
+				</button>
+			</form>
+		</div>
+	</div>
+	
+	<!-- Success Popup -->
+	<div id="successPopup" class="success-popup">
+		Thank you for subscribing! We'll notify you when we launch.
+	</div>
+
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/moment.min.js"></script>
+	<script src="vendor/countdowntime/moment-timezone.min.js"></script>
+	<script src="vendor/countdowntime/moment-timezone-with-data.min.js"></script>
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+	<script src="js/countdown.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+	<!-- In the <script> section of index.html, replace the form submission handling with: -->
+<script>
+    $('.js-tilt').tilt({
+        scale: 1.1
+    });
+    
+    // Email submission handling
+    $(document).ready(function() {
+        $('#subscribeForm').submit(function(e) {
+            e.preventDefault();
+            
+            var email = $('#email').val();
+            
+            // Simple email validation
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            // Show loading state
+            $('button[type="submit"]').prop('disabled', true).text('Subscribing...');
+            
+            // Send data to server using AJAX
+            $.ajax({
+                url: 'submit.php',
+                method: 'POST',
+                data: { email: email },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        showSuccessPopup();
+                        $('#email').val('');
+                    } else {
+                        alert(response.message || 'There was an error. Please try again.');
+                    }
+                },
+                error: function(xhr) {
+                    try {
+                        var response = JSON.parse(xhr.responseText);
+                        alert(response.message || 'There was an error. Please try again.');
+                    } catch (e) {
+                        alert('There was an error. Please try again.');
+                    }
+                },
+                complete: function() {
+                    $('button[type="submit"]').prop('disabled', false).text('Subscribe');
+                }
+            });
+        });
+        
+        function showSuccessPopup() {
+            var popup = $('#successPopup');
+            popup.fadeIn();
+            
+            // Hide after 5 seconds
+            setTimeout(function() {
+                popup.fadeOut();
+            }, 5000);
+        }
+    });
+</script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>
